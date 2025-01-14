@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 
 # Takes the following parameters
 # authtoken = API Token from XC
