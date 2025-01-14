@@ -105,7 +105,8 @@ const formPage = `
                 <label for="xcconsole">The Hostname of the User's Console:</label>
                 <input type="text" id="xcconsole" name="xcconsole" required>
             </div>
-            <button type="submit">Submit</button>
+           <button type="submit" formaction="/prepare-environment" formmethod="POST">Prepare Environment</button>
+            <button type="submit" formaction="/cleanup-environment" formmethod="POST">Clean Up Environment</button>
         </form>
     </div>
 </body>
@@ -117,27 +118,47 @@ app.get('/', (req, res) => {
     res.send(formPage);
 });
 
-// Handle form submission
-app.post('/submit', (req, res) => {
+// Handle Prepare Environment
+app.post('/prepare-environment', (req, res) => {
     const { authtoken, tenant, namespace, friendlyname, xcconsole } = req.body;
-
-    // Execute the shell script with the parameters
-    const command = `./script.sh --authtoken "${authtoken}" --tenant "${tenant}" --namespace "${namespace}" --friendlyname "${friendlyname}" --xcconsole "${xcconsole}"`;
+    const command = `./prepare-environment.sh --authtoken "${authtoken}" --tenant "${tenant}" --namespace "${namespace}" --friendlyname "${friendlyname}" --xcconsole "${xcconsole}"`;
 
     exec(command, (error, stdout, stderr) => {
         if (error) {
-            console.error(`Error executing script: ${error.message}`);
-            res.status(500).send(`Error executing script: ${error.message}`);
+            console.error(`Error executing prepare script: ${error.message}`);
+            res.status(500).send(`Error executing prepare script: ${error.message}`);
             return;
         }
 
         if (stderr) {
-            console.error(`Script error output: ${stderr}`);
-            res.status(500).send(`Script error: ${stderr}`);
+            console.error(`Prepare script error output: ${stderr}`);
+            res.status(500).send(`Prepare script error: ${stderr}`);
             return;
         }
 
-        res.send(`<h1>Script executed successfully</h1><pre>${stdout}</pre>`);
+        res.send(`<h1>Environment Prepared Successfully</h1><pre>${stdout}</pre>`);
+    });
+});
+
+// Handle Clean Up Environment
+app.post('/cleanup-environment', (req, res) => {
+    const { authtoken, tenant, namespace, friendlyname, xcconsole } = req.body;
+    const command = `./cleanup-environment.sh --authtoken "${authtoken}" --tenant "${tenant}" --namespace "${namespace}" --friendlyname "${friendlyname}" --xcconsole "${xcconsole}"`;
+
+    exec(command, (error, stdout, stderr) => {
+        if (error) {
+            console.error(`Error executing cleanup script: ${error.message}`);
+            res.status(500).send(`Error executing cleanup script: ${error.message}`);
+            return;
+        }
+
+        if (stderr) {
+            console.error(`Cleanup script error output: ${stderr}`);
+            res.status(500).send(`Cleanup script error: ${stderr}`);
+            return;
+        }
+
+        res.send(`<h1>Environment Cleaned Up Successfully</h1><pre>${stdout}</pre>`);
     });
 });
 
