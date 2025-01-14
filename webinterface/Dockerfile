@@ -1,5 +1,6 @@
 # Use Node.js base image
-FROM node:16
+FROM alpine
+RUN apk add --no-cache curl jq bash
 
 # Set the working directory
 WORKDIR /usr/src/app
