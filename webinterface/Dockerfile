@@ -13,6 +13,8 @@ RUN npm install
 # Copy the application files
 COPY . .
 
+RUN apt install jq
+
 # Expose the port the app runs on
 EXPOSE 3000
 
