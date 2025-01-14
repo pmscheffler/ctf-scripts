@@ -1,0 +1,565 @@
+{
+	"info": {
+		"_postman_id": "91b0dcde-4182-4796-8eef-8f09054c273b",
+		"name": "CTF API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40314642"
+	},
+	"item": [
+		{
+			"name": "Create Hosts",
+			"item": [
+				{
+					"name": "Metadata",
+					"item": [
+						{
+							"name": "Get Components",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"let obj = jsonData.find(e => e.name === \"big-ip\");\r",
+											"console.log(obj.accessMethods);\r",
+											"\r",
+											"postman.setEnvironmentVariable(\"CTFd\", obj.accessMethods.https.find(e => e.label === \"CTFd\").host);\r",
+											"postman.setEnvironmentVariable(\"AppY\", obj.accessMethods.https.find(e => e.label === \"AppY\").host);\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://metadata.udf/deployment/components",
+									"protocol": "http",
+									"host": [
+										"metadata",
+										"udf"
+									],
+									"path": [
+										"deployment",
+										"components"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "AppY",
+					"item": [
+						{
+							"name": "Create AppY Origin Pool Copy",
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "APIToken {{XCAPI-token}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "Authorization",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"metadata\": {\r\n    \"name\": \"{{friendlyname}}-appy-pool\",\r\n    \"disable\": false\r\n  },\r\n  \"spec\": {\r\n    \"origin_servers\": [\r\n      {\r\n        \"public_name\": {\r\n          \"dns_name\": \"{{AppY}}\",\r\n          \"refresh_interval\": 300\r\n        }\r\n      }\r\n    ],\r\n    \"use_tls\": {\r\n      \"use_host_header_as_sni\": {},\r\n      \"tls_config\": {\r\n        \"default_security\": {}\r\n      },\r\n      \"volterra_trusted_ca\": {},\r\n      \"no_mtls\": {},\r\n      \"default_session_key_caching\": {}\r\n    },\r\n    \"port\": 443,\r\n    \"same_as_endpoint_port\": {},\r\n    \"loadbalancer_algorithm\": \"LB_OVERRIDE\",\r\n    \"endpoint_selection\": \"LOCAL_PREFERRED\"\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{xc-api-host}}.console.ves.volterra.io/api/config/namespaces/{{namespace}}/origin_pools",
+									"protocol": "https",
+									"host": [
+										"{{xc-api-host}}",
+										"console",
+										"ves",
+										"volterra",
+										"io"
+									],
+									"path": [
+										"api",
+										"config",
+										"namespaces",
+										"{{namespace}}",
+										"origin_pools"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create AppY Virtual Host Copy",
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "APIToken {{XCAPI-token}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "Authorization",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"metadata\": {\r\n    \"name\": \"{{friendlyname}}-appy\",\r\n    \"disable\": false\r\n  },\r\n  \"spec\": {\r\n    \"domains\": [\r\n      \"{{friendlyname}}-appy.{{demo-domain}}\"\r\n    ],\r\n    \"http\": {\r\n      \"dns_volterra_managed\": true,\r\n      \"port\": 80\r\n    },\r\n    \"advertise_on_public_default_vip\": {},\r\n    \"default_route_pools\": [\r\n      {\r\n        \"pool\": {\r\n          \"tenant\": \"{{xctenant}}\",\r\n          \"namespace\": \"{{namespace}}\",\r\n          \"name\": \"{{friendlyname}}-appy-pool\",\r\n          \"kind\": \"origin_pool\"\r\n        },\r\n        \"weight\": 1,\r\n        \"priority\": 1,\r\n        \"endpoint_subsets\": {}\r\n      }\r\n    ],\r\n    \"routes\": [\r\n      {\r\n        \"simple_route\": {\r\n          \"path\": {\r\n            \"prefix\": \"/*\"\r\n          },\r\n          \"incoming_port\": {\r\n            \"no_port_match\": {}\r\n          },\r\n          \"origin_pools\": [\r\n            {\r\n              \"pool\": {\r\n                \"tenant\": \"{{xctenant}}\",\r\n                \"namespace\": \"{{namespace}}\",\r\n                \"name\": \"{{friendlyname}}-appy-pool\",\r\n                \"kind\": \"origin_pool\"\r\n              },\r\n              \"weight\": 1,\r\n              \"priority\": 1,\r\n              \"endpoint_subsets\": {}\r\n            }\r\n          ],\r\n          \"host_rewrite\": \"{{AppY}}\",\r\n          \"query_params\": {\r\n            \"retain_all_params\": {}\r\n          }\r\n        }\r\n      }\r\n    ],\r\n    \"disable_waf\": {},\r\n    \"add_location\": true,\r\n    \"no_challenge\": {},\r\n    \"user_id_client_ip\": {},\r\n    \"disable_rate_limit\": {},\r\n    \"service_policies_from_namespace\": {},\r\n    \"round_robin\": {},\r\n    \"disable_trust_client_ip_headers\": {},\r\n    \"disable_malicious_user_detection\": {},\r\n    \"disable_api_discovery\": {},\r\n    \"disable_bot_defense\": {},\r\n    \"default_sensitive_data_policy\": {},\r\n    \"disable_api_definition\": {},\r\n    \"disable_ip_reputation\": {},\r\n    \"disable_client_side_defense\": {},\r\n    \"system_default_timeouts\": {},\r\n    \"disable_threat_mesh\": {},\r\n    \"l7_ddos_action_default\": {}\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{xc-api-host}}.console.ves.volterra.io/api/config/namespaces/{{namespace}}/http_loadbalancers",
+									"protocol": "https",
+									"host": [
+										"{{xc-api-host}}",
+										"console",
+										"ves",
+										"volterra",
+										"io"
+									],
+									"path": [
+										"api",
+										"config",
+										"namespaces",
+										"{{namespace}}",
+										"http_loadbalancers"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CTFd",
+					"item": [
+						{
+							"name": "Create CTFd Origin Pool",
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "APIToken {{XCAPI-token}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "Authorization",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"metadata\": {\r\n    \"name\": \"{{friendlyname}}-ctfd-pool\",\r\n    \"disable\": false\r\n  },\r\n  \"spec\": {\r\n    \"origin_servers\": [\r\n      {\r\n        \"public_name\": {\r\n          \"dns_name\": \"{{CTFd}}\",\r\n          \"refresh_interval\": 300\r\n        }\r\n      }\r\n    ],\r\n    \"use_tls\": {\r\n      \"use_host_header_as_sni\": {},\r\n      \"tls_config\": {\r\n        \"default_security\": {}\r\n      },\r\n      \"volterra_trusted_ca\": {},\r\n      \"no_mtls\": {},\r\n      \"default_session_key_caching\": {}\r\n    },\r\n    \"port\": 443,\r\n    \"same_as_endpoint_port\": {},\r\n    \"loadbalancer_algorithm\": \"LB_OVERRIDE\",\r\n    \"endpoint_selection\": \"LOCAL_PREFERRED\"\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{xc-api-host}}.console.ves.volterra.io/api/config/namespaces/{{namespace}}/origin_pools",
+									"protocol": "https",
+									"host": [
+										"{{xc-api-host}}",
+										"console",
+										"ves",
+										"volterra",
+										"io"
+									],
+									"path": [
+										"api",
+										"config",
+										"namespaces",
+										"{{namespace}}",
+										"origin_pools"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create CTFd Virtual Host",
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "APIToken {{XCAPI-token}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "Authorization",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"metadata\": {\r\n    \"name\": \"{{friendlyname}}-ctfd\",\r\n    \"disable\": false\r\n  },\r\n  \"spec\": {\r\n    \"domains\": [\r\n      \"{{friendlyname}}-ctfd.{{demo-domain}}\"\r\n    ],\r\n    \"http\": {\r\n      \"dns_volterra_managed\": true,\r\n      \"port\": 80\r\n    },\r\n    \"advertise_on_public_default_vip\": {},\r\n    \"default_route_pools\": [\r\n      {\r\n        \"pool\": {\r\n          \"tenant\": \"{{xctenant}}\",\r\n          \"namespace\": \"{{namespace}}\",\r\n          \"name\": \"{{friendlyname}}-ctfd-pool\",\r\n          \"kind\": \"origin_pool\"\r\n        },\r\n        \"weight\": 1,\r\n        \"priority\": 1,\r\n        \"endpoint_subsets\": {}\r\n      }\r\n    ],\r\n    \"routes\": [\r\n      {\r\n        \"simple_route\": {\r\n          \"path\": {\r\n            \"prefix\": \"/*\"\r\n          },\r\n          \"incoming_port\": {\r\n            \"no_port_match\": {}\r\n          },\r\n          \"origin_pools\": [\r\n            {\r\n              \"pool\": {\r\n                \"tenant\": \"{{xctenant}}\",\r\n                \"namespace\": \"{{namespace}}\",\r\n                \"name\": \"{{friendlyname}}-ctfd-pool\",\r\n                \"kind\": \"origin_pool\"\r\n              },\r\n              \"weight\": 1,\r\n              \"priority\": 1,\r\n              \"endpoint_subsets\": {}\r\n            }\r\n          ],\r\n          \"host_rewrite\": \"{{CTFd}}\",\r\n          \"query_params\": {\r\n            \"retain_all_params\": {}\r\n          }\r\n        }\r\n      }\r\n    ],\r\n    \"disable_waf\": {},\r\n    \"add_location\": true,\r\n    \"no_challenge\": {},\r\n    \"user_id_client_ip\": {},\r\n    \"disable_rate_limit\": {},\r\n    \"service_policies_from_namespace\": {},\r\n    \"round_robin\": {},\r\n    \"disable_trust_client_ip_headers\": {},\r\n    \"disable_malicious_user_detection\": {},\r\n    \"disable_api_discovery\": {},\r\n    \"disable_bot_defense\": {},\r\n    \"default_sensitive_data_policy\": {},\r\n    \"disable_api_definition\": {},\r\n    \"disable_ip_reputation\": {},\r\n    \"disable_client_side_defense\": {},\r\n    \"system_default_timeouts\": {},\r\n    \"disable_threat_mesh\": {},\r\n    \"l7_ddos_action_default\": {}\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{xc-api-host}}.console.ves.volterra.io/api/config/namespaces/{{namespace}}/http_loadbalancers",
+									"protocol": "https",
+									"host": [
+										"{{xc-api-host}}",
+										"console",
+										"ves",
+										"volterra",
+										"io"
+									],
+									"path": [
+										"api",
+										"config",
+										"namespaces",
+										"{{namespace}}",
+										"http_loadbalancers"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Cleanup",
+			"item": [
+				{
+					"name": "AppY",
+					"item": [
+						{
+							"name": "Remove AppY Load Balancer Copy",
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "APIToken {{XCAPI-token}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "Authorization",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://{{xc-api-host}}.console.ves.volterra.io/api/config/namespaces/{{namespace}}/http_loadbalancers/{{friendlyname}}-appy",
+									"protocol": "https",
+									"host": [
+										"{{xc-api-host}}",
+										"console",
+										"ves",
+										"volterra",
+										"io"
+									],
+									"path": [
+										"api",
+										"config",
+										"namespaces",
+										"{{namespace}}",
+										"http_loadbalancers",
+										"{{friendlyname}}-appy"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete AppYOrigin Pool Copy",
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "APIToken {{XCAPI-token}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "Authorization",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://{{xc-api-host}}.console.ves.volterra.io/api/config/namespaces/{{namespace}}/origin_pools/{{friendlyname}}-appy-pool",
+									"protocol": "https",
+									"host": [
+										"{{xc-api-host}}",
+										"console",
+										"ves",
+										"volterra",
+										"io"
+									],
+									"path": [
+										"api",
+										"config",
+										"namespaces",
+										"{{namespace}}",
+										"origin_pools",
+										"{{friendlyname}}-appy-pool"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CTFd",
+					"item": [
+						{
+							"name": "Remove CTFd Load Balancer",
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "APIToken {{XCAPI-token}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "Authorization",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://{{xc-api-host}}.console.ves.volterra.io/api/config/namespaces/{{namespace}}/http_loadbalancers/{{friendlyname}}-ctfd",
+									"protocol": "https",
+									"host": [
+										"{{xc-api-host}}",
+										"console",
+										"ves",
+										"volterra",
+										"io"
+									],
+									"path": [
+										"api",
+										"config",
+										"namespaces",
+										"{{namespace}}",
+										"http_loadbalancers",
+										"{{friendlyname}}-ctfd"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete CTFd Origin Pool",
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "APIToken {{XCAPI-token}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "Authorization",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://{{xc-api-host}}.console.ves.volterra.io/api/config/namespaces/{{namespace}}/origin_pools/{{friendlyname}}-ctfd-pool",
+									"protocol": "https",
+									"host": [
+										"{{xc-api-host}}",
+										"console",
+										"ves",
+										"volterra",
+										"io"
+									],
+									"path": [
+										"api",
+										"config",
+										"namespaces",
+										"{{namespace}}",
+										"origin_pools",
+										"{{friendlyname}}-ctfd-pool"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Manage CTF",
+			"item": [
+				{
+					"name": "Get Challenges",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Token {{auth-token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://{{CTFd}}/api/v1/challenges",
+							"protocol": "http",
+							"host": [
+								"{{CTFd}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"challenges"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "List XC Virtual Hosts (LBs)",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "APIToken {{XCAPI-token}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "Authorization",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://{{xc-api-host}}.console.ves.volterra.io/api/config/namespaces/{{namespace}}/virtual_hosts",
+					"protocol": "https",
+					"host": [
+						"{{xc-api-host}}",
+						"console",
+						"ves",
+						"volterra",
+						"io"
+					],
+					"path": [
+						"api",
+						"config",
+						"namespaces",
+						"{{namespace}}",
+						"virtual_hosts"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
