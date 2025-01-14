@@ -82,8 +82,8 @@ curl --silent --location --request DELETE 'https://'$xcconsole'.console.ves.volt
 curl --silent --location --request DELETE 'https://'$xcconsole'.console.ves.volterra.io/api/config/namespaces/'$namespace'/origin_pools/'$friendlyname'-appy-pool' --header 'Authorization: APIToken '$authtoken''
 
 # Remove CTFd LB
-curl --silent --location --request DELETE 'https://'$xcconsole'.console.ves.volterra.io/api/config/namespaces/$namespace/http_loadbalancers/'$friendlyname'-ctfd' --header 'Authorization: APIToken '$authtoken''
+curl --silent --location --request DELETE 'https://'$xcconsole'.console.ves.volterra.io/api/config/namespaces/'$namespace'/http_loadbalancers/'$friendlyname'-ctfd' --header 'Authorization: APIToken '$authtoken''
 # Remove CTFd Pool
 
-curl --silent --location --request DELETE 'https://'$xcconsole'.console.ves.volterra.io/api/config/namespaces/$namespace/origin_pools/'$friendlyname'-ctfd-pool' --header 'Authorization: APIToken '$authtoken''
+curl --silent --location --request DELETE 'https://'$xcconsole'.console.ves.volterra.io/api/config/namespaces/'$namespace'/origin_pools/'$friendlyname'-ctfd-pool' --header 'Authorization: APIToken '$authtoken''
 
