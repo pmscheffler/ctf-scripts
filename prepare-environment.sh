@@ -7,8 +7,6 @@
 # friendlyname = Part of the Hostname, CTFd or AppY will be prepended
 # xcconsole = The Hostname of the User's Console
 
-#!/bin/bash
-
 # Initialize variables
 authtoken=""
 tenant=""
@@ -18,7 +16,8 @@ xcconsole=""
 
 # Function to display usage
 usage() {
-    echo "Usage: $0 --authtoken <value> --tenant <value> --namespace <value> --friendlyname <value> --xcconsole <value>"
+    echo "Usage: $0 [--authtoken <value>] [--tenant <value>] [--namespace <value>] [--friendlyname <value>] [--xcconsole <value>]"
+    echo "If no parameters are provided, you will be prompted to enter the values interactively."
     exit 1
 }
 
@@ -55,10 +54,25 @@ while [[ "$#" -gt 0 ]]; do
     esac
 done
 
-# Validate that all parameters are provided
-if [[ -z "$authtoken" || -z "$tenant" || -z "$namespace" || -z "$friendlyname" || -z "$xcconsole" ]]; then
-    echo "Error: Missing required parameters."
-    usage
+# Prompt user for input if any value is missing
+if [[ -z "$authtoken" ]]; then
+    read -p "Enter authtoken: " authtoken
+fi
+
+if [[ -z "$tenant" ]]; then
+    read -p "Enter tenant: " tenant
+fi
+
+if [[ -z "$namespace" ]]; then
+    read -p "Enter namespace: " namespace
+fi
+
+if [[ -z "$friendlyname" ]]; then
+    read -p "Enter friendly name: " friendlyname
+fi
+
+if [[ -z "$xcconsole" ]]; then
+    read -p "Enter XC Console URL: " xcconsole
 fi
 
 # Output the variables (for demonstration purposes)
@@ -67,10 +81,6 @@ echo "Tenant: $tenant"
 echo "Namespace: $namespace"
 echo "Friendly Name: $friendlyname"
 echo "XC Console: $xcconsole"
-
-# Now you can use these variables in your script logic
-
-
 
 # get the URL for the CTF
 ctfd=$(curl --silent --location 'http://metadata.udf/deployment/components' --header 'Content-Type: application/json'| jq -r '.[] | .accessMethods.https[]? | select(.label == "CTFd") | .host' )
