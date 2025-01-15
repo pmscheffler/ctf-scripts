@@ -87,7 +87,19 @@ Use the UDF platform to share secure links:
    - Execute necessary `curl` commands.
    - Create Load Balancers and Pools in XC.
 
+If all goes well, you should see this in a few seconds
+![Success](static/ctf-instructions-_18.png)
+
+In the XC Console, under **Web and API Protection > Manage > Load Balancers > HTTP Load Balancers**
+![XC Console HTTP Load Balancers](static/ctf-instructions-_19.png)
+
+Finally, test the URLs to ensure that traffic is properly flowing through the Load Balancers and the UDF.
+
 ---
+
+---
+
+Now your F5 CTF is ready to go! Engage participants with this fun and educational experience.
 
 ## Maintenance and Cleanup
 - If the server deployment stops, the origin server URLs will change.
@@ -100,6 +112,3 @@ Use the UDF platform to share secure links:
 ## Optional: Manual Configuration
 Refer to the [GitHub repository](https://github.com/pmscheffler/ctf-scripts) for details on manual configuration.
 
----
-
-Now your F5 CTF is ready to go! Engage participants with this fun and educational experience.
