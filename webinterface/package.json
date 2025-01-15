@@ -11,6 +11,5 @@
     "express": "^4.21.2",
     "jq": "^1.7.2"
   },
-  "devDependencies": {},
   "description": ""
 }
