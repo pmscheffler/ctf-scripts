@@ -1,4 +1,3 @@
-```markdown
 # F5 CTF Lab Setup Guide
 
 ## Introduction
@@ -90,4 +89,3 @@ Refer to the [GitHub repository](https://github.com/pmscheffler/ctf-scripts) for
 ---
 
 Now your F5 CTF is ready to go! Engage participants with this fun and educational experience.
-```
