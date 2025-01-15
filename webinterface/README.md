@@ -73,6 +73,7 @@ Use the UDF platform to share secure links:
 
 ### 4. Prepare the Environment
 1. Open the **CTF Management** link in the **CTF Server Deployment** (under the "containers" server).
+![Launch the CTF Manager](static/ctf-instructions-_15.png)
 2. Enter the gathered details:
    - Tenant ID
    - Domain
@@ -80,7 +81,8 @@ Use the UDF platform to share secure links:
    - Namespace
    - API Token
    - Friendly URL prefix
-
+3. Press the "Prepare Environment" button to create the elements in XC
+![Prepare Environment](static/ctf-instructions-_16.png)
 3. The system will:
    - Execute necessary `curl` commands.
    - Create Load Balancers and Pools in XC.
@@ -90,6 +92,7 @@ Use the UDF platform to share secure links:
 ## Maintenance and Cleanup
 - If the server deployment stops, the origin server URLs will change.
 - Use the **Cleanup** option in the CTF Manager to reset the environment.
+![Prepare Environment](static/ctf-instructions-_16.png)
 - Re-run the **Prepare Environment** script to restore functionality.
 
 ---
