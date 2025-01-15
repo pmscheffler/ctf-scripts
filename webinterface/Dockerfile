@@ -1,6 +1,6 @@
 FROM alpine
 
-RUN apk add --no-cache nodejs npm bash jq 
+RUN apk add --no-cache nodejs npm bash jq curl
 
 # Set the working directory
 WORKDIR /usr/src/app
