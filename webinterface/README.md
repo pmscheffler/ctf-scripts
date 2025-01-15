@@ -45,25 +45,25 @@ Use the UDF platform to share secure links:
 ### 3. Configure DNS in F5 XC
 1. **Gather Required Information**:
    - **Tenant ID**: Found in **Administration > Tenant Settings > Tenant Overview**.
-   [Administration](static/ctf-instructions-_12.png)
-   [Administration Menu](static/ctf-instructions-_11.png)
-   [Tenant Information](static/ctf-instructions-_14.png)
+   ![Administration](static/ctf-instructions-_12.png)
+   ![Administration Menu](static/ctf-instructions-_11.png)
+   ![Tenant Information](static/ctf-instructions-_14.png)
    - **Company Name**: Found in the same section as the Tenant ID.
    - **Namespace**: Found in **Administration > Personal Management > Namespaces** (usually based on your initials and last name).
-   [Namespace Details](static/ctf-instructions-_1.png)
+   ![Namespace Details](static/ctf-instructions-_1.png)
    - **API Token**: 
      - Create a token in **Administration > Personal Management > Credentials**.
      - Use a descriptive name (e.g., `mycoolctf-token`).
      - Set a short expiry date (e.g., a few days after the event).
      - **Important**: Copy the token when displayed. It won’t be shown again.
-     [Administration User Management Credentials](static/ctf-instructions-_10.png)
-     [Administration User Management Credentials](static/ctf-instructions-_9.png)
-     [Administration User Management Credentials](static/ctf-instructions-_8.png)
-     [Administration User Management Credentials](static/ctf-instructions-_7.png)
-     [Administration User Management Credentials](static/ctf-instructions-_6.png)
-     [Administration User Management Credentials](static/ctf-instructions-_5.png)
+     ![Administration User Management Credentials](static/ctf-instructions-_10.png)
+     ![Administration User Management Credentials](static/ctf-instructions-_9.png)
+     ![Administration User Management Credentials](static/ctf-instructions-_8.png)
+     ![Administration User Management Credentials](static/ctf-instructions-_7.png)
+     ![Administration User Management Credentials](static/ctf-instructions-_6.png)
+     ![Administration User Management Credentials](static/ctf-instructions-_5.png)
    - **Domain**: Your XC domain name. Found in **DNS Management > Manage > Delegated Domain Management**.
-   [DNS Management delegated domain management](static/ctf-instructions-_3.png)
+   ![DNS Management delegated domain management](static/ctf-instructions-_3.png)
 
 2. **Choose a Friendly URL Prefix**:
    - Example: `mycoolctf`.
