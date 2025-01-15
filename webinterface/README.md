@@ -45,25 +45,25 @@ Use the UDF platform to share secure links:
 ### 3. Configure DNS in F5 XC
 1. **Gather Required Information**:
    - **Tenant ID**: Found in **Administration > Tenant Settings > Tenant Overview**.
-   ![Administration](static/ctf-instructions-_12.png)
-   ![Administration Menu](static/ctf-instructions-_11.png)
-   ![Tenant Information](static/ctf-instructions-_14.png)
+   ![Administration](https://github.com/pmscheffler/ctf-scripts/blob/main/webinterface/static/ctf-instructions-_12.png?raw=true)
+   ![Administration Menu](https://github.com/pmscheffler/ctf-scripts/blob/main/webinterface/static/ctf-instructions-_11.png?raw=true)
+   ![Tenant Information](https://github.com/pmscheffler/ctf-scripts/blob/main/webinterface/static/ctf-instructions-_14.png?raw=true)
    - **Company Name**: Found in the same section as the Tenant ID.
    - **Namespace**: Found in **Administration > Personal Management > Namespaces** (usually based on your initials and last name).
-   ![Namespace Details](static/ctf-instructions-_1.png)
+   ![Namespace Details](https://github.com/pmscheffler/ctf-scripts/blob/main/webinterface/static/ctf-instructions-_1.png?raw=true)
    - **API Token**: 
      - Create a token in **Administration > Personal Management > Credentials**.
      - Use a descriptive name (e.g., `mycoolctf-token`).
      - Set a short expiry date (e.g., a few days after the event).
      - **Important**: Copy the token when displayed. It won’t be shown again.
-     ![Administration User Management Credentials](static/ctf-instructions-_10.png)
-     ![Administration User Management Credentials](static/ctf-instructions-_9.png)
-     ![Administration User Management Credentials](static/ctf-instructions-_8.png)
-     ![Administration User Management Credentials](static/ctf-instructions-_7.png)
-     ![Administration User Management Credentials](static/ctf-instructions-_6.png)
-     ![Administration User Management Credentials](static/ctf-instructions-_5.png)
+     ![Administration User Management Credentials](https://github.com/pmscheffler/ctf-scripts/blob/main/webinterface/static/ctf-instructions-_10.png?raw=true)
+     ![Administration User Management Credentials](https://github.com/pmscheffler/ctf-scripts/blob/main/webinterface/static/ctf-instructions-_9.png?raw=true)
+     ![Administration User Management Credentials](https://github.com/pmscheffler/ctf-scripts/blob/main/webinterface/static/ctf-instructions-_8.png?raw=true)
+     ![Administration User Management Credentials](https://github.com/pmscheffler/ctf-scripts/blob/main/webinterface/static/ctf-instructions-_7.png?raw=true)
+     ![Administration User Management Credentials](https://github.com/pmscheffler/ctf-scripts/blob/main/webinterface/static/ctf-instructions-_6.png?raw=true)
+     ![Administration User Management Credentials](https://github.com/pmscheffler/ctf-scripts/blob/main/webinterface/static/ctf-instructions-_5.png?raw=true)
    - **Domain**: Your XC domain name. Found in **DNS Management > Manage > Delegated Domain Management**.
-   ![DNS Management delegated domain management](static/ctf-instructions-_3.png)
+   ![DNS Management delegated domain management](https://github.com/pmscheffler/ctf-scripts/blob/main/webinterface/static/ctf-instructions-_3.png?raw=true)
 
 2. **Choose a Friendly URL Prefix**:
    - Example: `mycoolctf`.
@@ -73,7 +73,7 @@ Use the UDF platform to share secure links:
 
 ### 4. Prepare the Environment
 1. Open the **CTF Management** link in the **CTF Server Deployment** (under the "containers" server).
-![Launch the CTF Manager](static/ctf-instructions-_15.png)
+![Launch the CTF Manager](https://github.com/pmscheffler/ctf-scripts/blob/main/webinterface/static/ctf-instructions-_15.png?raw=true)
 2. Enter the gathered details:
    - Tenant ID
    - Domain
@@ -82,28 +82,28 @@ Use the UDF platform to share secure links:
    - API Token
    - Friendly URL prefix
 3. Press the "Prepare Environment" button to create the elements in XC
-![Prepare Environment](static/ctf-instructions-_16.png)
+![Prepare Environment](https://github.com/pmscheffler/ctf-scripts/blob/main/webinterface/static/ctf-instructions-_16.png?raw=true)
 3. The system will:
    - Execute necessary `curl` commands.
    - Create Load Balancers and Pools in XC.
 
 If all goes well, you should see this in a few seconds
-![Success](static/ctf-instructions-_18.png)
+![Success](https://github.com/pmscheffler/ctf-scripts/blob/main/webinterface/static/ctf-instructions-_18.png?raw=true)
 
 Finally, test the URLs to ensure that traffic is properly flowing through the Load Balancers and the UDF.
 
 ---
 
 In the XC Console, under **Web and API Protection > Manage > Load Balancers > HTTP Load Balancers**
-![XC Console HTTP Load Balancers](static/ctf-instructions-_19.png)
+![XC Console HTTP Load Balancers](https://github.com/pmscheffler/ctf-scripts/blob/main/webinterface/static/ctf-instructions-_19.png?raw=true)
 
 
 ## Creation of the Student Class
 
 Create a UDF Course as you would for any other lab, but only choose the Student Blueprint
-![Create Course](static/ctf-instructions-_20.png)
-![Choose Student BP](static/ctf-instructions-_21.png)
-![Course ready to publish](static/ctf-instructions-_22.png)
+![Create Course](https://github.com/pmscheffler/ctf-scripts/blob/main/webinterface/static/ctf-instructions-_20.png?raw=true)
+![Choose Student BP](https://github.com/pmscheffler/ctf-scripts/blob/main/webinterface/static/ctf-instructions-_21.png?raw=true)
+![Course ready to publish](https://github.com/pmscheffler/ctf-scripts/blob/main/webinterface/static/ctf-instructions-_22.png?raw=true)
 
 Your course is ready to publish and schedule
 
@@ -114,7 +114,7 @@ Now your F5 CTF is ready to go! Engage participants with this fun and educationa
 ## Maintenance and Cleanup
 - If the server deployment stops, the origin server URLs will change.
 - Use the **Cleanup** option in the CTF Manager to reset the environment.
-![Prepare Environment](static/ctf-instructions-_16.png)
+![Prepare Environment](https://github.com/pmscheffler/ctf-scripts/blob/main/webinterface/static/ctf-instructions-_17.png?raw=true)
 - Re-run the **Prepare Environment** script to restore functionality.
 
 ---
