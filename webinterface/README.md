@@ -27,7 +27,7 @@ Centralizing the servers prevents students from directly accessing sensitive res
 
 ---
 
-## Configuration Steps
+## Configuration Steps for CTF and AppY Server
 
 ### 1. Deploy the Server Blueprint
 - Deploy the **Server Blueprint** to set up the CTF server.  The [Server blueprint](https://udf.f5.com/b/3e69d283-0b47-497b-9250-e95359bbdebc#documentation) is available here.
@@ -90,12 +90,22 @@ Use the UDF platform to share secure links:
 If all goes well, you should see this in a few seconds
 ![Success](static/ctf-instructions-_18.png)
 
-In the XC Console, under **Web and API Protection > Manage > Load Balancers > HTTP Load Balancers**
-![XC Console HTTP Load Balancers](static/ctf-instructions-_19.png)
-
 Finally, test the URLs to ensure that traffic is properly flowing through the Load Balancers and the UDF.
 
 ---
+
+In the XC Console, under **Web and API Protection > Manage > Load Balancers > HTTP Load Balancers**
+![XC Console HTTP Load Balancers](static/ctf-instructions-_19.png)
+
+
+## Creation of the Student Class
+
+Create a UDF Course as you would for any other lab, but only choose the Student Blueprint
+![Create Course](static/ctf-instructions-_20.png)
+![Choose Student BP](static/ctf-instructions-_21.png)
+![Course ready to publish](static/ctf-instructions-_22.png)
+
+Your course is ready to publish and schedule
 
 ---
 
