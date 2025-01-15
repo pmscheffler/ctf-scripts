@@ -1,5 +1,7 @@
 # Use Node.js base image
-FROM node:23.4.0
+FROM alpine
+
+run apk install node npm bash jq 
 
 # Set the working directory
 WORKDIR /usr/src/app
@@ -12,8 +14,6 @@ RUN npm install
 
 # Copy the application files
 COPY . .
-
-RUN apt install jq
 
 # Expose the port the app runs on
 EXPOSE 3000
