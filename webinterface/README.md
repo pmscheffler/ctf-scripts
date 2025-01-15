@@ -30,8 +30,8 @@ Centralizing the servers prevents students from directly accessing sensitive res
 ## Configuration Steps
 
 ### 1. Deploy the Server Blueprint
-- Deploy the **Server Blueprint** to set up the CTF server.
-- Use the **Student Blueprint** to provide jumphosts for participants.
+- Deploy the **Server Blueprint** to set up the CTF server.  The [Server blueprint](https://udf.f5.com/b/3e69d283-0b47-497b-9250-e95359bbdebc#documentation) is available here.
+- Use the **Student Blueprint** to provide jumphosts for participants.  The [Student Blueprint](https://udf.f5.com/b/c8224624-6073-4e6c-b61b-824780e4b6e0#documentation) is available here.
 
 ---
 
@@ -45,14 +45,25 @@ Use the UDF platform to share secure links:
 ### 3. Configure DNS in F5 XC
 1. **Gather Required Information**:
    - **Tenant ID**: Found in **Administration > Tenant Settings > Tenant Overview**.
-   - **Domain**: Your XC domain name.
+   [Administration](static/ctf-instructions-_12.png)
+   [Administration Menu](static/ctf-instructions-_11.png)
+   [Tenant Information](static/ctf-instructions-_14.png)
    - **Company Name**: Found in the same section as the Tenant ID.
    - **Namespace**: Found in **Administration > Personal Management > Namespaces** (usually based on your initials and last name).
+   [Namespace Details](static/ctf-instructions-_1.png)
    - **API Token**: 
      - Create a token in **Administration > Personal Management > Credentials**.
      - Use a descriptive name (e.g., `mycoolctf-token`).
      - Set a short expiry date (e.g., a few days after the event).
      - **Important**: Copy the token when displayed. It won’t be shown again.
+     [Administration User Management Credentials](static/ctf-instructions-_10.png)
+     [Administration User Management Credentials](static/ctf-instructions-_9.png)
+     [Administration User Management Credentials](static/ctf-instructions-_8.png)
+     [Administration User Management Credentials](static/ctf-instructions-_7.png)
+     [Administration User Management Credentials](static/ctf-instructions-_6.png)
+     [Administration User Management Credentials](static/ctf-instructions-_5.png)
+   - **Domain**: Your XC domain name. Found in **DNS Management > Manage > Delegated Domain Management**.
+   [DNS Management delegated domain management](static/ctf-instructions-_3.png)
 
 2. **Choose a Friendly URL Prefix**:
    - Example: `mycoolctf`.
