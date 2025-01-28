@@ -128,7 +128,7 @@ WE haven't solved this yet but we did have users getting a page saying they can'
 We checked this by looking at the User list under the Admin user's Admin Panel.  The Admin Password is on the UDF Containers server's info page.
 
 ## Requiring a regcode
-If a regcode is requested, you can set the regcode on the *Admin Panel / Config / Registration Code*
+If a regcode is requested, you can set the regcode on the **Admin Panel / Config / Registration Code**
 
 The default regcode is available on the UDF Container App documentation
 
