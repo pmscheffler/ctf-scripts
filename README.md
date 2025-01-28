@@ -16,6 +16,8 @@ Reassure participants that this is not a high-pressure hackathon. Everyone will 
 - **Jumphost Option**: Provide a secure hosted environment for participants concerned about corporate policies. However, their own devices are sufficient.
 - **Resources Provided**: All necessary tools are explained during the session.
 
+Note all of the passwords are avaiable within the UDF Blueprint, they are not disclosed on this document.  You can get them under the BIG-IP documentation page for the BIG-IP and on the Containers server for the Admin user for the CTFd and the Regcode.
+
 ---
 
 ## Setup Overview
@@ -126,7 +128,9 @@ WE haven't solved this yet but we did have users getting a page saying they can'
 We checked this by looking at the User list under the Admin user's Admin Panel.  The Admin Password is on the UDF Containers server's info page.
 
 ## Requiring a regcode
-If a regcode is requested, you can get 
+If a regcode is requested, you can set the regcode on the *Admin Panel / Config / Registration Code*
+
+The default regcode is available on the UDF Container App documentation
 
 # Optional: Manual Configuration
 Refer to the [GitHub repository](https://github.com/pmscheffler/ctf-scripts) for details on manual configuration.
