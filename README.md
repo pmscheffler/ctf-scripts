@@ -119,6 +119,17 @@ Now your F5 CTF is ready to go! Engage participants with this fun and educationa
 
 ---
 
+### Troubleshooting
+
+## Some issues we have faced
+
+# Users not being able to register
+WE haven't solved this yet but we did have users getting a page saying they can't access the site after registering, but the user wasn't actually created.
+We checked this by looking at the User list under the Admin user's Admin Panel.  The Admin Password is on the UDF Containers server's info page.
+
+# Requiring a regcode
+If a regcode is requested, you can get 
+
 ## Optional: Manual Configuration
 Refer to the [GitHub repository](https://github.com/pmscheffler/ctf-scripts) for details on manual configuration.
 
